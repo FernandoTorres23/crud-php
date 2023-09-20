@@ -14,13 +14,16 @@
 <body>
     <div>
         <h1 class="text-center p-3">CRUD PHP</h1>
+        <?php
+        include 'model/connection.php';
+        include 'controller/delete_user.php';
+        ?>
         <div class="container-fluid row">
             <form action="" class="col-4 p-3" method="POST">
                 <h3 class="text-center text-secondary">Registrar Usuario</h3>
                 <?php
-                include 'model/connection.php';
-                include 'controller/registro_usuario.php'
-                    ?>
+                include 'controller/registro_usuario.php';
+                ?>
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name='name' aria-describedby="Nombre">
@@ -84,9 +87,11 @@
                                     <?= $datos->email ?>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-warning"><i
+                                    <a href="modify.php?id=<?= $datos->id ?>" class="btn btn-small btn-warning"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <a onclick="return deleteUser()" href="index.php?id=<?= $datos->id ?>"
+                                        class="btn btn-small btn-danger" id="btnDelete"><i
+                                            class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php }
@@ -96,6 +101,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deleteUser() {
+            let respuesta = confirm('Estas seguro de eliminar este usuario?');
+            return respuesta;
+        }
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
